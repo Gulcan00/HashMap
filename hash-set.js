@@ -25,16 +25,18 @@ function createHashSet() {
       buckets[index] = [];
     }
 
-    buckets[index].push(key);
-    keysCount++;
+    if (!buckets[index].includes(key)) {
+      buckets[index].push(key);
+      keysCount++;
+    }
 
     if (keysCount / buckets.length > LOAD_FACTOR) {
       // Resize buckets size
       const newSize = buckets.length * 2;
       const newBuckets = new Array(newSize);
       buckets.forEach((bucket) =>
-        bucket.forEach((node) => {
-          const newIndex = hash(node.key) % newSize;
+        bucket.forEach((k) => {
+          const newIndex = hash(k) % newSize;
           if (newIndex < 0 || newIndex >= newBuckets.length) {
             throw new Error("Trying to access index out of bound");
           }
@@ -42,7 +44,7 @@ function createHashSet() {
             newBuckets[newIndex] = [];
           }
 
-          newBuckets[newIndex].push(node.key);
+          newBuckets[newIndex].push(k);
         })
       );
       buckets = newBuckets;
@@ -59,8 +61,8 @@ function createHashSet() {
       return false;
     }
 
-    const node = buckets[index].find((node) => node.key === key);
-    return node?.value || null;
+    const keyFromBucket = buckets[index].find((k) => k === key);
+    return keyFromBucket || null;
   }
 
   function has(key) {
@@ -73,8 +75,8 @@ function createHashSet() {
       return false;
     }
 
-    const node = buckets[index].find((node) => node.key === key);
-    return node ? true : false;
+    const keyFromBucket = buckets[index].find((k) => k === key);
+    return keyFromBucket ? true : false;
   }
 
   function remove(key) {
@@ -84,9 +86,9 @@ function createHashSet() {
     }
 
     if (buckets[index]) {
-      const nodeIndex = buckets[index].indexOf(key);
-      if (nodeIndex !== -1) {
-        buckets[index].splice(nodeIndex, 1);
+      const keyIndex = buckets[index].indexOf(key);
+      if (keyIndex !== -1) {
+        buckets[index].splice(keyIndex, 1);
       }
     }
 
@@ -105,8 +107,8 @@ function createHashSet() {
   function keys() {
     const keysArr = [];
     buckets.forEach((bucket) =>
-      bucket.forEach((node) => {
-        keysArr.push(node.key);
+      bucket.forEach((key) => {
+        keysArr.push(key);
       })
     );
 
