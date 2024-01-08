@@ -89,6 +89,12 @@ function createHashMap() {
         buckets[index].splice(nodeIndex, 1);
       }
     }
+
+    entries--;
+  }
+
+  function length() {
+    return entries;
   }
 
   return {
