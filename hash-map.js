@@ -1,22 +1,55 @@
 function createHashMap() {
-    const buckets = [];
-    
-    function hash(value) {
-        let hashCode = 0;
+  let buckets = new Array(16);
+  let entries = 0;
+  const LOAD_FACTOR = 0.75;
 
-        const primeNumber = 31;
-        for (let i = 0; i < value.length; i++) {
-            hashCode = primeNumber * hashCode + value.charCodeAt(i);
-        }
+  function hash(value) {
+    let hashCode = 0;
 
-        return hashCode;
+    const primeNumber = 31;
+    for (let i = 0; i < value.length; i++) {
+      hashCode = primeNumber * hashCode + value.charCodeAt(i);
     }
 
-    function set(key, value) {
-        
+    return hashCode;
+  }
+
+  function set(key, value) {
+    const index = hash(key) % buckets.length;
+
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bound");
     }
 
-    return {
-
+    if (!buckets[index]) {
+      buckets[index] = [];
     }
+
+    buckets[index].push({ key, value });
+    entries++;
+
+    if (entries / buckets.length > LOAD_FACTOR) {
+      // Resize buckets size
+      const newSize = buckets.length * 2;
+      const newBuckets = new Array(newSize);
+      buckets.forEach((bucket) =>
+        bucket.forEach((node) => {
+          const newIndex = hash(node.key) % newSize;
+          if (newIndex < 0 || newIndex >= newBuckets.length) {
+            throw new Error("Trying to access index out of bound");
+          }
+          if (!newBuckets[newIndex]) {
+            newBuckets[newIndex] = [];
+          }
+
+          newBuckets[newIndex].push({ key: node.key, value: node.value });
+        })
+      );
+      buckets = newBuckets;
+    }
+  }
+
+  return {
+    set,
+  };
 }
