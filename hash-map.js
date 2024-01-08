@@ -101,6 +101,39 @@ function createHashMap() {
     buckets = new Array(16);
   }
 
+  function keys() {
+    const keysArr = [];
+    buckets.forEach((bucket) =>
+      bucket.forEach((node) => {
+        keysArr.push(node.key);
+      })
+    );
+
+    return keysArr;
+  }
+
+  function values() {
+    const valuesArr = [];
+    buckets.forEach((bucket) =>
+      bucket.forEach((node) => {
+        valuesArr.push(node.value);
+      })
+    );
+
+    return valuesArr;
+  }
+
+  function entries() {
+    const entriesArr = [];
+    buckets.forEach((bucket) =>
+      bucket.forEach((node) => {
+        entriesArr.push([node.key, node.value]);
+      })
+    );
+
+    return entriesArr;
+  }
+
   return {
     set,
     get,
@@ -108,5 +141,8 @@ function createHashMap() {
     remove,
     length,
     clear,
+    keys,
+    values,
+    entries,
   };
 }
