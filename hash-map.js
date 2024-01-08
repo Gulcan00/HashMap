@@ -99,6 +99,7 @@ function createHashMap() {
 
   function clear() {
     buckets = new Array(16);
+    entriesCount = 0;
   }
 
   function keys() {
@@ -146,3 +147,46 @@ function createHashMap() {
     entries,
   };
 }
+
+const hashMap = createHashMap();
+
+console.log("Length", hashMap.length());
+console.log("Set, hashMap.set('name', 'John')");
+hashMap.set("name", "John");
+console.log("Length", hashMap.length());
+
+console.log("Set, hashMap.set('age', 30)");
+hashMap.set("age", 30);
+console.log("Length", hashMap.length());
+
+console.log("Set, hashMap.set('dob', '01/01/1990')");
+hashMap.set("dob", "01/01/1990");
+console.log("Length", hashMap.length());
+
+console.log("Set, hashMap.set('address', '123 Street')");
+hashMap.set("address", "123 Street");
+console.log("Length", hashMap.length());
+
+console.log("Get, hashMap.get('name')");
+console.log(hashMap.get("name"));
+
+console.log("Get, hashMap.get('age')");
+console.log(hashMap.get("age"));
+
+console.log("Has, hashMap.has('name')");
+console.log(hashMap.has("name"));
+
+console.log("Remove, hashMap.remove('name')");
+hashMap.remove("name");
+console.log("Length", hashMap.length());
+
+console.log("Has, hashMap.has('name')");
+console.log(hashMap.has("name"));
+
+console.log("Keys", hashMap.keys());
+console.log("Values", hashMap.values());
+console.log("Entries", hashMap.entries());
+
+console.log("Clear, hashMap.clear()");
+hashMap.clear();
+console.log("Length", hashMap.length());
