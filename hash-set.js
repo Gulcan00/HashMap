@@ -125,3 +125,47 @@ function createHashSet() {
     keys,
   };
 }
+
+const hashSet = createHashSet();
+console.log("Length", hashSet.length());
+console.log("Adding a");
+hashSet.set("a");
+console.log("Length", hashSet.length());
+
+console.log("Adding a again");
+hashSet.set("a");
+console.log("Length", hashSet.length());
+
+console.log("Adding b");
+hashSet.set("b");
+console.log("Length", hashSet.length());
+
+console.log("Adding c");
+hashSet.set("c");
+console.log("Length", hashSet.length());
+
+console.log("Adding d");
+hashSet.set("d");
+console.log("Length", hashSet.length());
+
+console.log("Adding e");
+hashSet.set("e");
+console.log("Length", hashSet.length());
+
+console.log("Getting a:", hashSet.get("a"));
+console.log("Getting b:", hashSet.get("b"));
+
+console.log("Has a", hashSet.has("a"));
+console.log("Has b", hashSet.has("b"));
+
+console.log("Removing a");
+hashSet.remove("a");
+console.log("Length", hashSet.length());
+
+console.log("Has a", hashSet.has("a"));
+
+console.log("Keys", hashSet.keys());
+
+console.log("Clearing");
+hashSet.clear();
+console.log("Length", hashSet.length());
