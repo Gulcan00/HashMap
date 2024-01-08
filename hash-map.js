@@ -55,12 +55,31 @@ function createHashMap() {
       throw new Error("Trying to access index out of bound");
     }
 
+    if (!buckets[index]) {
+      return false;
+    }
+
     const node = buckets[index].find((node) => node.key === key);
-    return node.value;
+    return node?.value || null;
+  }
+
+  function has(key) {
+    const index = hash(key) % buckets.length;
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bound");
+    }
+
+    if (!buckets[index]) {
+      return false;
+    }
+
+    const node = buckets[index].find((node) => node.key === key);
+    return node ? true : false;
   }
 
   return {
     set,
     get,
+    has,
   };
 }
