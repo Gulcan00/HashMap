@@ -77,9 +77,24 @@ function createHashMap() {
     return node ? true : false;
   }
 
+  function remove(key) {
+    const index = hash(key) % buckets.length;
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bound");
+    }
+
+    if (buckets[index]) {
+      const nodeIndex = buckets[index].findIndex((node) => node.key === key);
+      if (nodeIndex !== -1) {
+        buckets[index].splice(nodeIndex, 1);
+      }
+    }
+  }
+
   return {
     set,
     get,
     has,
+    remove,
   };
 }
