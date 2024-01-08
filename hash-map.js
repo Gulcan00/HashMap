@@ -97,10 +97,16 @@ function createHashMap() {
     return entries;
   }
 
+  function clear() {
+    buckets = new Array(16);
+  }
+
   return {
     set,
     get,
     has,
     remove,
+    length,
+    clear,
   };
 }
