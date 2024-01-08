@@ -1,6 +1,6 @@
 function createHashMap() {
   let buckets = new Array(16);
-  let entries = 0;
+  let entriesCount = 0;
   const LOAD_FACTOR = 0.75;
 
   function hash(value) {
@@ -26,9 +26,9 @@ function createHashMap() {
     }
 
     buckets[index].push({ key, value });
-    entries++;
+    entriesCount++;
 
-    if (entries / buckets.length > LOAD_FACTOR) {
+    if (entriesCount / buckets.length > LOAD_FACTOR) {
       // Resize buckets size
       const newSize = buckets.length * 2;
       const newBuckets = new Array(newSize);
@@ -90,11 +90,11 @@ function createHashMap() {
       }
     }
 
-    entries--;
+    entriesCount--;
   }
 
   function length() {
-    return entries;
+    return entriesCount;
   }
 
   function clear() {
