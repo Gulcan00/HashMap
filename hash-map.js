@@ -1,4 +1,6 @@
 function createHashMap() {
+    const buckets = [];
+    
     function hash(value) {
         let hashCode = 0;
 
@@ -10,7 +12,11 @@ function createHashMap() {
         return hashCode;
     }
 
-    return {
+    function set(key, value) {
         
+    }
+
+    return {
+
     }
 }
