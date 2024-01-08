@@ -49,7 +49,18 @@ function createHashMap() {
     }
   }
 
+  function get(key) {
+    const index = hash(key) % buckets.length;
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bound");
+    }
+
+    const node = buckets[index].find((node) => node.key === key);
+    return node.value;
+  }
+
   return {
     set,
+    get,
   };
 }
